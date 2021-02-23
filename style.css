@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+i,
+svg {
+  pointer-events: none; /* nothing should happen when you click exactly on the icon of a button */
+}
+
+.kick-pad,
+.snare-pad,
+.hihat-pad {
+  width: 5rem;
+  height: 5rem;
+  margin: 1rem 0.5rem;
+  cursor: pointer;
+}
+
+.kick-pad {
+  background: rgb(149, 202, 246);
+}
+.kick-pad.active {
+  background: rgb(42, 159, 255); /* if the pad is getting active */
+}
+
+.snare-pad {
+  background: rgb(146, 248, 197);
+}
+.snare-pad.active {
+  background: rgb(41, 255, 148); /* if the pad is getting active */
+}
+
+.hihat-pad {
+  background: rgb(248, 220, 143);
+}
+.hihat-pad.active {
+  background: rgb(255, 199, 44); /* if the pad is getting active */
+}
+
+.kick-track,
+.snare-track,
+.hihat-track {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  justify-content: space-between;
+  margin-top: 5rem;
+}
+
+.kick,
+.snare,
+.hihat {
+  display: flex;
+}
+
+.sequencer {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1; /* stretch it out */
+  margin: 0rem 2rem;
+}
+
+.controls button {
+  padding: 1rem;
+  border: none;
+  background: rgb(97, 97, 97);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.pad {
+  transition: all 0.5s ease; /* for color in/out of the pads*/
+}
+
+.play {
+  padding: 1rem;
+  font-size: 1.5rem;
+  background: rgb(97, 97, 97);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 3rem;
+}
+
+select {
+  padding: 1rem;
+  font-size: 1rem;
+}
