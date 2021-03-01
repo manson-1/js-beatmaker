@@ -7,6 +7,7 @@ class DrumKit{
         this.hihatAudio = document.querySelector(".hihat-sound"); // the actual audio tracks
         this.index = 0; 
         this.bpm = 150; 
+        this.isPlaying = null; 
     }
 
     activePad(){
@@ -40,11 +41,30 @@ class DrumKit{
         console.log(step);
     }
 
-    start(){
+    start_or_stop(){
         const interval = 60 / this.bpm * 1000; // convert bpm to interval measured in miliseconds
-        setInterval(() => {
-            this.repeat(); // start repeating
-        }, interval); // interval in ms
+        // check if its playing
+        if(!this.isPlaying) // not playing yet, isPlaying is set to "null" by default
+        {
+            this.isPlaying = setInterval(() => { // this.isPlaying will get assigned a random number, that is returned from setInterval() as soon as it is called
+                this.repeat(); // start repeating
+            }, interval); // interval in ms
+        }
+        else {
+            clearInterval(this.isPlaying); // stop the interval
+            this.isPlaying = null;
+        }
+    }
+
+    updateBtn(){
+        if(!this.isPlaying){ // track is currently playing
+            this.playBtn.innerText = "Stop";
+            this.playBtn.classList.add("active");
+        }
+        else{
+            this.playBtn.innerText = "Start";
+            this.playBtn.classList.remove("active");
+        }
     }
 }
 
@@ -57,4 +77,8 @@ drumKit.pads.forEach(pad => {
     });
 });
 
-drumKit.playBtn.addEventListener("click", () => drumKit.start()); // start the drumkit on click on play button. Arrow function is needed, so the correct "this" is used in the methods
+drumKit.playBtn.addEventListener("click", () => 
+{
+    drumKit.updateBtn(); // toggle between "Start" and "Stop" button
+    drumKit.start_or_stop(); // start the drumkit on click on play button. Arrow function is needed, so the correct "this" is used in the methods
+});
