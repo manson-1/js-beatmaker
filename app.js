@@ -13,6 +13,7 @@ class DrumKit {
     this.isPlaying = null;
     this.selects = document.querySelectorAll("select"); // grab all selects (dropdowns)
     this.muteBtns = document.querySelectorAll(".mute"); // grab all mute-buttons
+    this.tempoSlider = document.querySelector(".tempo-slider");
   }
 
   activePad() {
@@ -132,6 +133,23 @@ class DrumKit {
       }
     }
   }
+
+  changeTempoText(e) {
+    const tempoText = document.querySelector(".tempo-number");
+    tempoText.innerText = e.target.value;
+  }
+
+  updatePlayTempo(e) {
+    this.bpm = e.target.value; // set new tempo as bpm
+
+    clearInterval(this.isPlaying); // stop the playing of the track
+    this.isPlaying = null;
+
+    const playBtn = document.querySelector(".play"); // check if play-button currently is active or not
+    if (playBtn.classList.contains("active")) {
+      this.start_or_stop(); // if play-button is active atm, then start the play of the track again with the new tempo
+    }
+  }
 }
 
 const drumKit = new DrumKit(); // initialize
@@ -160,4 +178,14 @@ drumKit.muteBtns.forEach((btn) => {
   btn.addEventListener("click", function (e) {
     drumKit.mute(e);
   });
+});
+
+drumKit.tempoSlider.addEventListener("input", function (e) {
+  // input-event: called on each single move on the slider. change-event: only called when you move the slider to a final new location
+  drumKit.changeTempoText(e);
+});
+
+drumKit.tempoSlider.addEventListener("change", function (e) {
+  // input-event: called on each single move on the slider. change-event: only called when you move the slider to a final new location
+  drumKit.updatePlayTempo(e);
 });
